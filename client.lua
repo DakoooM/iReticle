@@ -5,7 +5,7 @@ CreateThread(function()
             if IsPedArmed(PlayerPedId(), abc) then
                 PedIsArmedOpti = true
                 local currentWeaponHash = GetSelectedPedWeapon(PlayerPedId())
-                if currentWeaponHash == GetHashKey("weapon_pistol") and IsPedWeaponReadyToShoot(PlayerPedId()) then
+                if currentWeaponHash == GetHashKey("weapon_pistol") then
                     HideHudComponentThisFrame(14)
                 elseif currentWeaponHash == GetHashKey("weapon_combatpistol") then
                     HideHudComponentThisFrame(14)
