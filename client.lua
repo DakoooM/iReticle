@@ -1,30 +1,27 @@
-local ExcludeWeapons ={ "HEAVYSNIPER", "MARKSMANRIFLE" }
+local ExcludeWeapons = {
+    "sniperrifle",
+    "heavysniper",
+    "heavysniper_mk2",
+    "marksmanrifle",
+    "marksmanrifle_mk2",
+}
 
 CreateThread(function()
-    local t
-
+    local TimeToUpdate
     while (function()
-        t =250
-        local playerPed =PlayerPedId()
-				
+        TimeToUpdate = 250				
         if not IsPlayerFreeAiming(PlayerId()) then
-        	return true
+            return true
         end
-		
-	local currentWeaponHash = GetSelectedPedWeapon(playerPed)
-
-	for _, weapon in ipairs(ExcludeWeapons) do
-		if currentWeaponHash == GetHashKey(("WEAPON_%s"):format(weapon)) then
-			return true
-		end
-	end
-
-	t =1
-
-	HideHudComponentThisFrame(14)
-				
+        for _, weapon in ipairs(ExcludeWeapons) do
+            if GetSelectedPedWeapon(PlayerPedId()) == GetHashKey(("WEAPON_%s"):format(string.upper(weapon))) then
+                return true
+            end
+        end
+        TimeToUpdate = 1.0
+        HideHudComponentThisFrame(14)	
 	return true
     end)() do
-        Wait(t)
+        Wait(TimeToUpdate)
     end
 end)
